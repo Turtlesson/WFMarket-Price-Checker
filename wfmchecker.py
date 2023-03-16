@@ -12,7 +12,7 @@ SELLER_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[
 BUY_BUTTON_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[6]/button"
 PRICE_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[4]/div/b"
 
-class WfMarketChecker:
+class WarframeMarketScraper:
         def __init__(self):
             # Set up ChromeOptions with desired preferences
             self.browserProfile = webdriver.ChromeOptions()
@@ -55,5 +55,5 @@ class WfMarketChecker:
             self.browser.quit()
 
             
-wfm = WfMarketChecker()
+wfm = WarframeMarketScraper()
 wfm.priceCheck()
