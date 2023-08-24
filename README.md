@@ -1,6 +1,6 @@
 # WFMarket-Price-Checker
 
-WF Market Price Checker is a Python script that automates the process of checking prices for items in the Warframe marketplace (https://warframe.market). It reads a list of items and prices from a text file, and checks the current prices for each item on the website. If the price is lower than or equal to the specified price, it clicks the "Buy" button and copies the order message to the clipboard.
+WF Market Price Checker is a Python script that automates the process of checking prices for items in the Warframe marketplace (https://warframe.market) using selenium. It reads a list of items and prices from a text file, and checks the current prices for each item on the website. If the price is lower than or equal to the specified price, it clicks the "Buy" button and copies the order message to the clipboard.
 
 # Installation
 
