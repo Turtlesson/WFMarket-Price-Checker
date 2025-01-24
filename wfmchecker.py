@@ -6,11 +6,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver import Chrome
+import time
+import winsound
+import requests
 
 # Constants
-SELLER_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[4]/div"
-BUY_BUTTON_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[6]/button"
-PRICE_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[4]/div/b"
+#SELLER_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[4]/div"
+SELLER_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div/div[1]/div/div[1]"
+#BUY_BUTTON_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[6]/button"
+BUY_BUTTON_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div/div[1]/div/div[7]/button"
+#PRICE_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div[1]/div[4]/div/b"
+PRICE_XPATH = "//*[@id='panel']/section[2]/div[3]/div[2]/div[2]/div/div/div[1]/div/div[4]/div/div"
+# Ask the user for the desired pause time between scrapes
+pause_time_input = input("Enter the desired pause time between scrapes (in seconds, don't spam): ")
+pause_time = int(pause_time_input)  # Convert the input to an integer
+
 
 class WarframeMarketScraper:
         def __init__(self):
@@ -40,6 +51,9 @@ class WarframeMarketScraper:
                     if price <= target_price:
                         # If price is less than or equal to target price, print success message and copy order message to clipboard
                         print(f"✔️ '{item.title().rstrip()}' costs {price} platinum, which is less than the amount you are willing to pay. ✔️")
+                        # Play a sound to indicate that the script found a cheaper price
+                        winsound.Beep(2500, 500)  # Replace with your preferred sound and duration
+                        winsound.Beep(3500, 500)
 
                         _buybutton_clickability = WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.XPATH, BUY_BUTTON_XPATH))) 
                         buy_button = self.browser.find_element("xpath", BUY_BUTTON_XPATH)
@@ -54,6 +68,9 @@ class WarframeMarketScraper:
                 
             self.browser.quit()
 
+        
             
 wfm = WarframeMarketScraper()
-wfm.priceCheck()
+while True: 
+    wfm.priceCheck()
+    time.sleep(pause_time) # pause till it scrapes again
